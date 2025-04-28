@@ -1,4 +1,4 @@
-import Menuitem from "./models/menuitems.models.js";
+import Menuitem from "../models/menuitems.models.js";
 
 export const getMenuItems = async (req, res) => {
   try {
@@ -6,9 +6,9 @@ export const getMenuItems = async (req, res) => {
     let menuItems;
 
     if (category) {
-      menuItems = await MenuItem.find({ category });
+      menuItems = await Menuitem.find({ category });
     } else {
-      menuItems = await MenuItem.find();
+      menuItems = await Menuitem.find();
     }
 
     res.json(menuItems);
