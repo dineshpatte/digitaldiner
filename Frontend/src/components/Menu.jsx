@@ -8,7 +8,9 @@ function Menu({ setCartCount }) {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/menu");
+        const res = await axios.get(
+          "https://digitaldiner-foj8.onrender.com/menu"
+        );
         const itemsWithImages = res.data.filter(
           (item) =>
             item.image && item.image.trim() !== "" && isValidImage(item.image)
