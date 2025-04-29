@@ -3,6 +3,7 @@ import axios from "axios";
 
 function Menu() {
   const [menuItems, setMenuItems] = useState([]);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -13,6 +14,13 @@ function Menu() {
             item.image && item.image.trim() !== "" && isValidImage(item.image)
         );
         setMenuItems(itemsWithImages);
+
+        // Initialize quantities to 1 for each item
+        const initialQuantities = {};
+        itemsWithImages.forEach((item) => {
+          initialQuantities[item._id] = 1;
+        });
+        setQuantities(initialQuantities);
       } catch (error) {
         console.error("Error fetching menu items:", error);
       }
@@ -26,6 +34,13 @@ function Menu() {
     return image.complete && image.naturalHeight !== 0;
   };
 
+  const handleQuantityChange = (itemId, delta) => {
+    setQuantities((prev) => {
+      const newQty = Math.max(1, (prev[itemId] || 1) + delta);
+      return { ...prev, [itemId]: newQty };
+    });
+  };
+
   const addToCart = async (item) => {
     try {
       const phone = localStorage.getItem("phone");
@@ -33,7 +48,7 @@ function Menu() {
         alert("Please login first");
         return;
       }
-      const quantity = 1;
+      const quantity = quantities[item._id] || 1;
       await axios.post("http://localhost:3000/api/cart/add", {
         phone,
         menuItemId: item._id,
@@ -68,6 +83,25 @@ function Menu() {
             <p className="text-sm text-gray-300 mb-4">
               Category: {item.category}
             </p>
+
+            <div className="flex items-center justify-center mb-3">
+              <button
+                onClick={() => handleQuantityChange(item._id, -1)}
+                className="px-3 py-1 text-xl bg-red-500 hover:bg-red-600 rounded-l"
+              >
+                –
+              </button>
+              <div className="px-4 py-1 bg-gray-800 text-white text-lg">
+                {quantities[item._id] || 1}
+              </div>
+              <button
+                onClick={() => handleQuantityChange(item._id, 1)}
+                className="px-3 py-1 text-xl bg-green-500 hover:bg-green-600 rounded-r"
+              >
+                +
+              </button>
+            </div>
+
             <button
               onClick={() => addToCart(item)}
               className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition"

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
 import Login from "./components/Login";
 import Menu from "./components/Menu";
 import Cart from "./components/Cart";
@@ -8,6 +9,7 @@ import Orders from "./components/Order";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -18,10 +20,10 @@ function App() {
         <nav className="bg-opacity-90 bg-black text-white shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
-              RestaurantApp
+              DigitalDiner
             </h1>
 
-            {/* Hamburger Icon for Mobile */}
+            {/* Hamburger */}
             <div className="md:hidden">
               <button
                 onClick={toggleMenu}
@@ -44,31 +46,37 @@ function App() {
               </button>
             </div>
 
-            <div className="space-x-6 hidden md:flex">
+            {/* Desktop nav */}
+            <div className="space-x-6 hidden md:flex items-center gap-10">
               <Link
                 to="/"
-                className="text-white hover:text-purple-400 transition duration-300 font-bold text-xl"
+                className="text-white hover:text-purple-400 transition font-bold text-xl"
               >
                 Menu
               </Link>
               <Link
-                to="/cart"
-                className="text-white hover:text-purple-400 transition duration-300 font-bold text-xl"
-              >
-                Cart
-              </Link>
-              <Link
                 to="/orders"
-                className="text-white hover:text-purple-400 transition duration-300 font-bold text-xl"
+                className="text-white hover:text-purple-400 transition font-bold text-xl"
               >
                 Orders
+              </Link>
+              <Link
+                to="/cart"
+                className="relative hover:text-purple-400 transition"
+              >
+                <ShoppingCart className="w-6 h-6" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
               </Link>
             </div>
           </div>
         </nav>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-black text-white space-y-4 py-4 px-6">
+          <div className="md:hidden bg-black text-white space-y-8 py-4 px-8">
             <Link
               to="/"
               onClick={() => setIsMenuOpen(false)}
@@ -77,18 +85,23 @@ function App() {
               Menu
             </Link>
             <Link
-              to="/cart"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-xl font-bold text-purple-400"
-            >
-              Cart
-            </Link>
-            <Link
               to="/orders"
               onClick={() => setIsMenuOpen(false)}
               className="block text-xl font-bold text-purple-400"
             >
               Orders
+            </Link>
+            <Link
+              to="/cart"
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-purple-400 relative"
+            >
+              <ShoppingCart className="w-6 h-6 inline-block" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </Link>
           </div>
         )}
@@ -100,7 +113,7 @@ function App() {
               isLoggedIn ? <Menu /> : <Login setIsLoggedIn={setIsLoggedIn} />
             }
           />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart setCartCount={setCartCount} />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Cart() {
+function Cart({ setCartCount }) {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
@@ -22,11 +22,13 @@ function Cart() {
 
         if (cart.length === 0) {
           alert("Cart is empty");
+          setCartCount(0);
         } else {
           const filteredItems = cart[0].items.filter(
             (item) => item.menuItemId !== null && item.menuItemId !== undefined
           );
           setCartItems(filteredItems);
+          setCartCount(filteredItems.length);
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -34,7 +36,7 @@ function Cart() {
     };
 
     fetchCart();
-  }, []);
+  }, [setCartCount]);
 
   const removeItemFromCart = async (menuItemId) => {
     try {
@@ -52,9 +54,11 @@ function Cart() {
       );
 
       if (response.data.message === "Item removed from cart") {
-        setCartItems((prevItems) =>
-          prevItems.filter((item) => item.menuItemId._id !== menuItemId)
+        const updatedItems = cartItems.filter(
+          (item) => item.menuItemId._id !== menuItemId
         );
+        setCartItems(updatedItems);
+        setCartCount(updatedItems.length); // 🔹 update count
         alert("Item removed successfully");
       }
     } catch (error) {
@@ -74,12 +78,12 @@ function Cart() {
         const quantity = item.quantity || 1;
         return total + price * quantity;
       }, 0),
-      orderTime: orderTime,
+      orderTime,
       deliveryTime: deliveryTime.toLocaleString(),
     };
 
     localStorage.setItem("order", JSON.stringify(order));
-
+    setCartCount(0); // 🔹 clear cart count on order
     navigate("/orders");
   };
 
