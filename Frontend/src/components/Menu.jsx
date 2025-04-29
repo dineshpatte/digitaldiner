@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function Menu() {
+function Menu({ setCartCount }) {
   const [menuItems, setMenuItems] = useState([]);
   const [quantities, setQuantities] = useState({});
 
@@ -15,7 +15,6 @@ function Menu() {
         );
         setMenuItems(itemsWithImages);
 
-        // Initialize quantities to 1 for each item
         const initialQuantities = {};
         itemsWithImages.forEach((item) => {
           initialQuantities[item._id] = 1;
@@ -54,6 +53,15 @@ function Menu() {
         menuItemId: item._id,
         quantity,
       });
+
+      // Fetch updated cart count
+      const res = await axios.get(
+        `http://localhost:3000/api/cart?phone=${phone}`
+      );
+      const validItems =
+        res.data[0]?.items?.filter((item) => item.menuItemId !== null) || [];
+      setCartCount(validItems.length);
+
       alert("Item added to cart!");
     } catch (error) {
       console.error("Error adding to cart:", error);
