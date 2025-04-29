@@ -50,7 +50,7 @@ function Menu({ setCartCount }) {
         return;
       }
       const quantity = quantities[item._id] || 1;
-      await axios.post("http://localhost:3000/api/cart/add", {
+      await axios.post("https://digitaldiner-foj8.onrender.com/add", {
         phone,
         menuItemId: item._id,
         quantity,
@@ -58,7 +58,7 @@ function Menu({ setCartCount }) {
 
       // Fetch updated cart count
       const res = await axios.get(
-        `http://localhost:3000/api/cart?phone=${phone}`
+        `https://digitaldiner-foj8.onrender.com/cart?phone=${phone}`
       );
       const validItems =
         res.data[0]?.items?.filter((item) => item.menuItemId !== null) || [];
