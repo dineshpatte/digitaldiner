@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const cartItemSchema = new mongoose.Schema({
   phone: {
     type: String,
-    required: false, // Make phone optional if not needed
+    required: true,
   },
   menuItemId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -20,14 +20,13 @@ export const getMenuItems = async (req, res) => {
 
 export const createMenuItem = async (req, res) => {
   try {
-    const { name, price, category, description, image } = req.body;
+    const { name, price, category, description } = req.body;
 
     const newItem = new Menuitem({
       name,
       price,
       category,
       description,
-      image,
     });
 
     await newItem.save();
