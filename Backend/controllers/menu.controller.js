@@ -1,4 +1,4 @@
-import Menuitem from "../models/menuitems.models.js";
+import MenuItem from "../models/menuitems.models.js";
 
 export const getMenuItems = async (req, res) => {
   try {
@@ -22,7 +22,7 @@ export const createMenuItem = async (req, res) => {
   try {
     const { name, price, category, description, image } = req.body;
 
-    const newItem = new Menuitem({
+    const newItem = new MenuItem({
       name,
       price,
       category,
