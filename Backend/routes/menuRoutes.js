@@ -6,7 +6,6 @@ import {
 
 const router = express.Router();
 
-// routes/menuRoutes.js
 router.post("/bulk-add", async (req, res) => {
   try {
     await MenuItem.insertMany(req.body);

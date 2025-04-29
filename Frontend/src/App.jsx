@@ -44,7 +44,6 @@ function App() {
               </button>
             </div>
 
-            {/* Navbar Links */}
             <div className="space-x-6 hidden md:flex">
               <Link
                 to="/"
@@ -68,7 +67,6 @@ function App() {
           </div>
         </nav>
 
-        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden bg-black text-white space-y-4 py-4 px-6">
             <Link
@@ -95,7 +93,6 @@ function App() {
           </div>
         )}
 
-        {/* Routes */}
         <Routes>
           <Route
             path="/"

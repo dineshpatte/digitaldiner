@@ -66,8 +66,7 @@ function Cart() {
   const handleOrderNow = () => {
     const orderTime = new Date().toLocaleString();
     const deliveryTime = new Date();
-    deliveryTime.setMinutes(deliveryTime.getMinutes() + 30); // Estimate delivery time (30 minutes from now)
-
+    deliveryTime.setMinutes(deliveryTime.getMinutes() + 30);
     const order = {
       items: cartItems,
       total: cartItems.reduce((total, item) => {
@@ -79,10 +78,8 @@ function Cart() {
       deliveryTime: deliveryTime.toLocaleString(),
     };
 
-    // Store order in local storage
     localStorage.setItem("order", JSON.stringify(order));
 
-    // Navigate to orders page
     navigate("/orders");
   };
 

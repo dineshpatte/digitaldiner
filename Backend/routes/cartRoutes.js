@@ -7,7 +7,6 @@ import {
 
 const router = express.Router();
 
-// Route to get cart items
 router.get("/", getCartItems);
 
 router.post("/add", addToCart);
