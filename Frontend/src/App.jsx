@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-700 text-white flex flex-col justify-between">
-        {/* Navbar */}
+        {/* Desktop Navbar */}
         <nav className="bg-opacity-90 bg-black text-white shadow-lg hidden md:block">
           <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
@@ -47,8 +47,17 @@ function App() {
           </div>
         </nav>
 
+        {/* Mobile Header (place above main content) */}
+        <header className="md:hidden bg-black text-center py-3">
+          <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
+            DigitalDiner
+          </h1>
+        </header>
+
         {/* Main Routes */}
-        <div className="flex-grow">
+        <div className="flex-grow pb-16">
+          {" "}
+          {/* Add bottom padding for footer */}
           <Routes>
             <Route
               path="/"
