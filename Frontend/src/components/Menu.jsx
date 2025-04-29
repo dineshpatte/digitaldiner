@@ -8,13 +8,23 @@ function Menu() {
     const fetchMenu = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/menu");
-        setMenuItems(res.data);
+        const itemsWithImages = res.data.filter(
+          (item) =>
+            item.image && item.image.trim() !== "" && isValidImage(item.image)
+        );
+        setMenuItems(itemsWithImages);
       } catch (error) {
         console.error("Error fetching menu items:", error);
       }
     };
     fetchMenu();
   }, []);
+
+  const isValidImage = (url) => {
+    const image = new Image();
+    image.src = url;
+    return image.complete && image.naturalHeight !== 0;
+  };
 
   const addToCart = async (item) => {
     try {
@@ -46,6 +56,11 @@ function Menu() {
             key={item._id}
             className="bg-white/10 border border-white/20 backdrop-blur-md p-6 rounded-2xl shadow-lg hover:shadow-purple-500/40 transition-all duration-300"
           >
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-48 object-cover rounded-lg mb-4"
+            />
             <h3 className="text-xl font-semibold text-purple-300">
               {item.name}
             </h3>

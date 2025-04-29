@@ -7,6 +7,9 @@ import Orders from "./components/Order";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <Router>
@@ -18,6 +21,30 @@ function App() {
               RestaurantApp
             </h1>
 
+            {/* Hamburger Icon for Mobile */}
+            <div className="md:hidden">
+              <button
+                onClick={toggleMenu}
+                className="text-white focus:outline-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Navbar Links */}
             <div className="space-x-6 hidden md:flex">
               <Link
                 to="/"
@@ -40,6 +67,33 @@ function App() {
             </div>
           </div>
         </nav>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-black text-white space-y-4 py-4 px-6">
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-xl font-bold text-purple-400"
+            >
+              Menu
+            </Link>
+            <Link
+              to="/cart"
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-xl font-bold text-purple-400"
+            >
+              Cart
+            </Link>
+            <Link
+              to="/orders"
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-xl font-bold text-purple-400"
+            >
+              Orders
+            </Link>
+          </div>
+        )}
 
         {/* Routes */}
         <Routes>
