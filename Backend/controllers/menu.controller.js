@@ -6,9 +6,9 @@ export const getMenuItems = async (req, res) => {
     let menuItems;
 
     if (category) {
-      menuItems = await Menuitem.find({ category });
+      menuItems = await MenuItem.find({ category });
     } else {
-      menuItems = await Menuitem.find();
+      menuItems = await MenuItem.find();
     }
 
     res.json(menuItems);
