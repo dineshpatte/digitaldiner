@@ -19,12 +19,9 @@
    cp .env.sample .env
    ```
 
-5. **Fill in the required details in `.env`**
-   ```env
-   DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/digital-diner
-   ```
 
-6. **Start the development server**
+
+5. **Start the development server**
    ```bash
    npm run dev
    ```
@@ -51,29 +48,29 @@
 
 ---
 
-## 🧠 Database Design Strategy
+##  Database Design Strategy
 
 This project uses **MongoDB** for all models due to its flexibility and speed. Since I was already familiar with MongoDB, and due to time constraints, I opted to use it for the entire backend.
 
 ### 1. User Model
 - **Database Used**: MongoDB  
-- **Why**: User data is consistent, but MongoDB supports indexing and schema validation.  
-- **Benefits**: Easy Mongoose integration for schema enforcement and validation.
+- **Why**: User data is structured and can be validated using Mongoose schemas.  
+- **Benefits**: Easy schema management and authentication support.
 
 ### 2. Order Model
 - **Database Used**: MongoDB  
-- **Why**: Orders benefit from MongoDB’s nesting and reference features.  
-- **Benefits**: Quick inserts, flexible structure, user references supported.
+- **Why**: Orders need to store multiple items and user references.  
+- **Benefits**: Supports nested order structures and fast operations.
 
 ### 3. Menu Model
 - **Database Used**: MongoDB  
-- **Why**: Dynamic structure (e.g., variants, add-ons).  
-- **Benefits**: Perfect for frequently updated, nested content.
+- **Why**: Menu can include dynamic structures like variants or add-ons.  
+- **Benefits**: Flexible, efficient updates and retrievals.
 
 ### 4. Cart System
-- **Handled on Frontend** using React Context API  
-- **Why**: Avoids backend complexity for a simple feature.  
-- **Benefits**: Fast, responsive, and easy to manage globally.
+- **Stored in Local Storage**  
+- **Why**: To avoid unnecessary backend calls and improve responsiveness.  
+- **Benefits**: Keeps the cart fast and persistent between page reloads without backend complexity.
 
 ---
 
@@ -96,25 +93,24 @@ This project uses **MongoDB** for all models due to its flexibility and speed. S
 
 ---
 
-## 🧩 Challenges Faced
+##  Challenges Faced
 
-### 🛒 Managing the Cart
+###  Managing the Cart
 
-Initially considered using MongoDB to store the cart but realized it added unnecessary backend calls.  
+Initially considered using MongoDB to store cart data, but it introduced unnecessary complexity.  
 Instead:
 
-- Used **Context API** for cart state management.
+- Used **Local Storage** to manage the cart on the frontend.
 - Benefits:
-  - No backend calls required.
-  - Clean and lightweight solution.
-  - Smooth and responsive UI.
+  - No backend calls required for cart updates.
+  - Simple and efficient.
+  - Persistent even after refresh.
 
 ---
 
-## ⚠️ Note
+##  Note
 
 The app is hosted on **Netlify**, which may be a bit **slow on first load**. If menu items don’t load immediately:
 
 - Please wait **5 seconds**, or  
 - Navigate to the **"Orders" page and come back** to "Menu" to refresh.
-
