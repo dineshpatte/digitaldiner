@@ -12,7 +12,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-700 text-white flex flex-col justify-between">
+      <div className="min-h-screen bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-700 text-white flex flex-col">
         {/* Desktop Navbar */}
         <nav className="bg-opacity-90 bg-black text-white shadow-lg hidden md:block">
           <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -56,8 +56,6 @@ function App() {
 
         {/* Main Routes */}
         <div className="flex-grow pb-16">
-          {" "}
-          {/* Add bottom padding for footer */}
           <Routes>
             <Route
               path="/"

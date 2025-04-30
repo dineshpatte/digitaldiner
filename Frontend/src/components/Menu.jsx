@@ -4,6 +4,7 @@ import axios from "axios";
 function Menu({ setCartCount }) {
   const [menuItems, setMenuItems] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [loading, setLoading] = useState(true); // New loading state
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -22,8 +23,11 @@ function Menu({ setCartCount }) {
           initialQuantities[item._id] = 1;
         });
         setQuantities(initialQuantities);
+
+        setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error("Error fetching menu items:", error);
+        setLoading(false); // Ensure loading is set to false if there's an error
       }
     };
     fetchMenu();
@@ -75,52 +79,61 @@ function Menu({ setCartCount }) {
       <h2 className="text-4xl font-bold text-center mb-8 text-purple-400">
         Our Menu
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {menuItems.map((item) => (
-          <div
-            key={item._id}
-            className="bg-white/10 border border-white/20 backdrop-blur-md p-6 rounded-2xl shadow-lg hover:shadow-purple-500/40 transition-all duration-300"
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-            <h3 className="text-xl font-semibold text-purple-300">
-              {item.name}
-            </h3>
-            <p className="text-white mt-2">₹{item.price}</p>
-            <p className="text-sm text-gray-300 mb-4">
-              Category: {item.category}
-            </p>
 
-            <div className="flex items-center justify-center mb-3">
-              <button
-                onClick={() => handleQuantityChange(item._id, -1)}
-                className="px-3 py-1 text-xl bg-red-500 hover:bg-red-600 rounded-l"
-              >
-                –
-              </button>
-              <div className="px-4 py-1 bg-gray-800 text-white text-lg">
-                {quantities[item._id] || 1}
+      {/* Show loading bar while data is being fetched */}
+      {loading ? (
+        <div className="flex justify-center items-center h-96">
+          <div className="w-24 h-24 border-4 border-t-4 border-purple-400 border-solid rounded-full animate-spin"></div>{" "}
+          {/* Spinning loader */}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {menuItems.map((item) => (
+            <div
+              key={item._id}
+              className="bg-white/10 border border-white/20 backdrop-blur-md p-6 rounded-2xl shadow-lg hover:shadow-purple-500/40 transition-all duration-300"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <h3 className="text-xl font-semibold text-purple-300">
+                {item.name}
+              </h3>
+              <p className="text-white mt-2">₹{item.price}</p>
+              <p className="text-sm text-gray-300 mb-4">
+                Category: {item.category}
+              </p>
+
+              <div className="flex items-center justify-center mb-3">
+                <button
+                  onClick={() => handleQuantityChange(item._id, -1)}
+                  className="px-3 py-1 text-xl bg-red-500 hover:bg-red-600 rounded-l"
+                >
+                  –
+                </button>
+                <div className="px-4 py-1 bg-gray-800 text-white text-lg">
+                  {quantities[item._id] || 1}
+                </div>
+                <button
+                  onClick={() => handleQuantityChange(item._id, 1)}
+                  className="px-3 py-1 text-xl bg-green-500 hover:bg-green-600 rounded-r"
+                >
+                  +
+                </button>
               </div>
+
               <button
-                onClick={() => handleQuantityChange(item._id, 1)}
-                className="px-3 py-1 text-xl bg-green-500 hover:bg-green-600 rounded-r"
+                onClick={() => addToCart(item)}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition"
               >
-                +
+                Add to Cart
               </button>
             </div>
-
-            <button
-              onClick={() => addToCart(item)}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition"
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
