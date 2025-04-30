@@ -1,10 +1,10 @@
-# 🍽️ Digital-Diner Live App
+#  Digital-Diner Live App
 
-### 🚀 Live Website: [Digital-Diner Live App](https://6811ace39d9789d0a3be79e4--rad-donut-1ff832.netlify.app/) *(Mobile Focused UI)*
+###  Live Website: [Digital-Diner Live App](https://6811ace39d9789d0a3be79e4--rad-donut-1ff832.netlify.app/) *(Mobile Focused UI)*
 
 ---
 
-## 📦 Steps to Run Backend
+##  Steps to Run Backend
 
 1. **Clone the repository**
 2. **Open the project folder** in your preferred code editor
@@ -74,7 +74,7 @@ This project uses **MongoDB** for all models due to its flexibility and speed. S
 
 ---
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 ### User Routes
 - `POST /register`
