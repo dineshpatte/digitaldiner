@@ -8,7 +8,9 @@ function Menu({ setCartCount }) {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await axios.get(`${process.env.BACKEND_URI}/api/menu`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/menu`
+        );
         const itemsWithImages = res.data.filter(
           (item) =>
             item.image && item.image.trim() !== "" && isValidImage(item.image)
@@ -48,7 +50,7 @@ function Menu({ setCartCount }) {
         return;
       }
       const quantity = quantities[item._id] || 1;
-      await axios.post(`${process.env.BACKEND_URI}/api/cart/add`, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {
         phone,
         menuItemId: item._id,
         quantity,
@@ -56,7 +58,7 @@ function Menu({ setCartCount }) {
 
       // Fetch updated cart count
       const res = await axios.get(
-        `${process.env.BACKEND_URI}/api/cart?phone=${phone}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/cart?phone=${phone}`
       );
       const validItems =
         res.data[0]?.items?.filter((item) => item.menuItemId !== null) || [];

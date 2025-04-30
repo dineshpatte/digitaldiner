@@ -16,7 +16,7 @@ function Cart({ setCartCount }) {
         }
 
         const res = await axios.get(
-          `${process.env.BACKEND_URI}/api/cart?phone=${phone}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/cart?phone=${phone}`
         );
         const cart = res.data;
 

@@ -12,7 +12,14 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+import cors from "cors";
+
+app.use(
+  cors({
+    origin: "https://imaginative-pasca-b6df67.netlify.app/",
+    credentials: true,
+  })
+);
 
 console.log("Mongo URI:", process.env.MONGODB_URI);
 
