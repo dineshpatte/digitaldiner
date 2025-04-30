@@ -16,7 +16,7 @@ function Cart({ setCartCount }) {
         }
 
         const res = await axios.get(
-          `process.env.BACEKEND_URI/api/cart?phone=${phone}`
+          `${process.env.BACKEND_URI}/api/cart?phone=${phone}`
         );
         const cart = res.data;
 
@@ -47,7 +47,7 @@ function Cart({ setCartCount }) {
       }
 
       const response = await axios.delete(
-        "process.env.BACEKEND_URI/api/cart/remove",
+        `${process.env.BACKEND_URI}/api/cart/remove`,
         {
           data: { phone, menuItemId },
         }
@@ -58,7 +58,7 @@ function Cart({ setCartCount }) {
           (item) => item.menuItemId._id !== menuItemId
         );
         setCartItems(updatedItems);
-        setCartCount(updatedItems.length); // 🔹 update count
+        setCartCount(updatedItems.length);
         alert("Item removed successfully");
       }
     } catch (error) {
