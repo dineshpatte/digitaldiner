@@ -9,7 +9,7 @@ function Menu({ setCartCount }) {
     const fetchMenu = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/menu`
+          `${import.meta.env.VITE_BACKEND_URI}/api/menu`
         );
         const itemsWithImages = res.data.filter(
           (item) =>
@@ -50,7 +50,7 @@ function Menu({ setCartCount }) {
         return;
       }
       const quantity = quantities[item._id] || 1;
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/cart/add`, {
         phone,
         menuItemId: item._id,
         quantity,
