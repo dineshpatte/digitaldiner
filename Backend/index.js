@@ -16,7 +16,7 @@ import cors from "cors";
 
 app.use(
   cors({
-    origin: "https://imaginative-pasca-b6df67.netlify.app/",
+    origin: "http://localhost:5173/",
     credentials: true,
   })
 );
