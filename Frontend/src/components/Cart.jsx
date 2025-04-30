@@ -16,7 +16,7 @@ function Cart({ setCartCount }) {
         }
 
         const res = await axios.get(
-          `https://digitaldiner-foj8.onrender.com/cart?phone=${phone}`
+          `http://localhost:3000/api/cart?phone=${phone}`
         );
         const cart = res.data;
 
@@ -47,7 +47,7 @@ function Cart({ setCartCount }) {
       }
 
       const response = await axios.delete(
-        "https://digitaldiner-foj8.onrender.com/remove",
+        "http://localhost:3000/api/cart/remove",
         {
           data: { phone, menuItemId },
         }
