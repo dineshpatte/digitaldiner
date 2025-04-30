@@ -16,7 +16,7 @@ function Cart({ setCartCount }) {
         }
 
         const res = await axios.get(
-          `http://localhost:3000/api/cart?phone=${phone}`
+          `process.env.BACEKEND_URI/api/cart?phone=${phone}`
         );
         const cart = res.data;
 
@@ -47,7 +47,7 @@ function Cart({ setCartCount }) {
       }
 
       const response = await axios.delete(
-        "http://localhost:3000/api/cart/remove",
+        "process.env.BACEKEND_URI/api/cart/remove",
         {
           data: { phone, menuItemId },
         }
